@@ -1,0 +1,108 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+// Функція для завдання 1: Обчислення периметра і площі рівностороннього трикутника
+void TrianglePS(double a, double &P, double &S) {
+    P = 3 * a; // Обчислення периметра
+    S = (a * a * sqrt(3)) / 4; // Обчислення площі
+}
+
+// Функція перевірки вхідних даних для завдання 2
+bool validateInputTask2(int A, int B) {
+    return (A >= -100 && A <= 100) && (B >= -100 && B <= 100);
+}
+
+// Функція перевірки висловлювання для завдання 2
+bool checkStatement(int A, int B) {
+    return (A > 2) && (B <= 3);
+}
+
+// Функція перевірки двозначності числа для завдання 3
+bool validateInputTask3(int number) {
+    return number >= 10 && number <= 99;
+}
+
+// Функція обчислення суми і добутку цифр для завдання 3
+void calculateSumAndProduct(int number, int &sum, int &product) {
+    int tens = number / 10; // Десятки
+    int units = number % 10; // Одиниці
+    sum = tens + units; // Сума цифр
+    product = tens * units; // Добуток цифр
+}
+
+// Функція для виконання завдання 1
+void task1() {
+    double a1, a2, a3, P, S;
+    cout << "Завдання 1: Рівносторонній трикутник\n";
+    cout << "Введіть три сторони рівносторонніх трикутників: ";
+    cin >> a1 >> a2 >> a3;
+
+    TrianglePS(a1, P, S);
+    cout << "Трикутник зі стороною " << a1 << ": Периметр = " << P << ", Площа = " << S << endl;
+
+    TrianglePS(a2, P, S);
+    cout << "Трикутник зі стороною " << a2 << ": Периметр = " << P << ", Площа = " << S << endl;
+
+    TrianglePS(a3, P, S);
+    cout << "Трикутник зі стороною " << a3 << ": Периметр = " << P << ", Площа = " << S << endl;
+}
+
+// Функція для виконання завдання 2
+void task2() {
+    int A, B;
+    cout << "Завдання 2: Перевірка висловлювання\n";
+    cout << "Введіть два числа (A, B): ";
+    cin >> A >> B;
+
+    if (!validateInputTask2(A, B)) {
+        cout << "Помилка: Вхідні дані мають бути в межах [-100, 100]!" << endl;
+        return;
+    }
+
+    if (checkStatement(A, B)) {
+        cout << "Висловлювання істинне." << endl;
+    } else {
+        cout << "Висловлювання хибне." << endl;
+    }
+}
+
+// Функція для виконання завдання 3
+void task3() {
+    int number, sum, product;
+    cout << "Завдання 3: Сума і добуток цифр двозначного числа\n";
+    cout << "Введіть двозначне число: ";
+    cin >> number;
+
+    if (!validateInputTask3(number)) {
+        cout << "Помилка: Введене число не є двозначним!" << endl;
+        return;
+    }
+
+    calculateSumAndProduct(number, sum, product);
+    cout << "Сума цифр: " << sum << ", Добуток цифр: " << product << endl;
+}
+
+// Головне меню програми
+int main() {
+    int choice;
+    do {
+        cout << "\nМеню:\n";
+        cout << "1. Завдання 1 (Рівносторонній трикутник)\n";
+        cout << "2. Завдання 2 (Перевірка висловлювання)\n";
+        cout << "3. Завдання 3 (Сума і добуток цифр)\n";
+        cout << "4. Вихід\n";
+        cout << "Оберіть завдання (1-4): ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1: task1(); break;
+            case 2: task2(); break;
+            case 3: task3(); break;
+            case 4: cout << "Програма завершена.\n"; break;
+            default: cout << "Невірний вибір. Спробуйте ще раз.\n";
+        }
+    } while (choice != 4);
+
+    return 0;
+}
