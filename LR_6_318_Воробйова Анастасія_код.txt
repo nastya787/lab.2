@@ -1,0 +1,112 @@
+#include <iostream>
+using namespace std;
+
+const int N = 6; // Фіксований розмір масиву
+
+// Функція введення масиву
+void input_arr(int arr[N]) {
+    cout << "Введіть 6 елементів масиву: ";
+    for (int i = 0; i < N; i++) {
+        cin >> arr[i];
+    }
+}
+
+// Функція виведення масиву
+void output_arr(const int arr[N]) {
+    for (int i = 0; i < N; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+}
+
+// Завдання 1 (Array38) — підрахунок ділянок спадання
+int count_decreasing_areas(const int arr[N]) {
+    int count = 0;
+    int i = 1;
+    while (i < N) {
+        if (arr[i] < arr[i - 1]) {
+            count++;
+            while (i < N && arr[i] < arr[i - 1]) {
+                i++;
+            }
+        } else {
+            i++;
+        }
+    }
+    return count;
+}
+
+// Завдання 2 (Array81) — зсув масиву вправо на K позицій
+void shift_right(int arr[N], int K) {
+    for (int i = N - 1; i >= K; i--) {
+        arr[i] = arr[i - K];
+    }
+    for (int i = 0; i < K; i++) {
+        arr[i] = 0;
+    }
+}
+
+// Функція без параметрів для завдання 1
+void task1() {
+    int arr[N];
+    input_arr(arr);
+
+    cout << "Масив: ";
+    output_arr(arr);
+
+    int result = count_decreasing_areas(arr);
+    cout << "Кількість ділянок спадання: " << result << endl;
+}
+
+// Функція без параметрів для завдання 2
+void task2() {
+    int arr[N];
+    int K;
+
+    input_arr(arr);
+    cout << "Введіть значення K (1 <= K < 6): ";
+    cin >> K;
+
+    if (K <= 0 || K >= N) {
+        cout << "Некоректне значення K!" << endl;
+        return;
+    }
+
+    cout << "Початковий масив: ";
+    output_arr(arr);
+
+    shift_right(arr, K);
+
+    cout << "Масив після зсуву на " << K << " позицій вправо: ";
+    output_arr(arr);
+}
+
+// Основна функція — організація вибору задач
+int main() {
+    int choice;
+
+    do {
+        cout << "\nВиберіть завдання:\n";
+        cout << "1 – Array38 (ділянки спадання)\n";
+        cout << "2 – Array81 (зсув праворуч)\n";
+        cout << "0 – Вихід\n";
+        cout << "Ваш вибір: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                task1();
+                break;
+            case 2:
+                task2();
+                break;
+            case 0:
+                cout << "Завершення програми.\n";
+                break;
+            default:
+                cout << "Невірний вибір. Спробуйте ще раз.\n";
+        }
+    } while (choice != 0);
+
+    return 0;
+}
