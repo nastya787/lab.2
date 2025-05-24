@@ -3,7 +3,7 @@
 #include <string>
 using namespace std;
 
-// Завдання 1: Зсув масиву вправо на K позицій, перші K = 0
+// Р—Р°РІРґР°РЅРЅСЏ 1: Р—СЃСѓРІ РјР°СЃРёРІСѓ РІРїСЂР°РІРѕ РЅР° K РїРѕР·РёС†С–Р№, РїРµСЂС€С– K = 0
 void shift_array(string in_file, string out_file) {
     ifstream fin(in_file);
     ofstream fout(out_file);
@@ -27,7 +27,7 @@ void shift_array(string in_file, string out_file) {
     fout.close();
 }
 
-// Завдання 2: Matrix46 – max у рядку і min у стовпці
+// Р—Р°РІРґР°РЅРЅСЏ 2: Matrix46 вЂ“ max Сѓ СЂСЏРґРєСѓ С– min Сѓ СЃС‚РѕРІРїС†С–
 void find_matrix_special(string filename) {
     ifstream fin(filename);
     ofstream fout(filename, ios::app);
@@ -63,7 +63,7 @@ void find_matrix_special(string filename) {
     fout.close();
 }
 
-// Завдання 3: Сортування вставками у порядку зменшення
+// Р—Р°РІРґР°РЅРЅСЏ 3: РЎРѕСЂС‚СѓРІР°РЅРЅСЏ РІСЃС‚Р°РІРєР°РјРё Сѓ РїРѕСЂСЏРґРєСѓ Р·РјРµРЅС€РµРЅРЅСЏ
 void insertion_sort_desc(string in_file, string out_file) {
     ifstream fin(in_file);
     ofstream fout(out_file);
@@ -92,51 +92,52 @@ void insertion_sort_desc(string in_file, string out_file) {
     fout.close();
 }
 
-// Основне меню
+// РћСЃРЅРѕРІРЅРµ РјРµРЅСЋ
 int main() {
     int choice;
     string input_file, output_file;
 
     do {
-        cout << "\nОберіть завдання:\n";
-        cout << "1 – Зсув масиву (Array81)\n";
-        cout << "2 – Matrix46 (max у рядку, min у стовпці)\n";
-        cout << "3 – Сортування методом вставки (зменшення)\n";
-        cout << "0 – Вихід\n";
-        cout << "Ваш вибір: ";
+        cout << "\nРћР±РµСЂС–С‚СЊ Р·Р°РІРґР°РЅРЅСЏ:\n";
+        cout << "1 вЂ“ Р—СЃСѓРІ РјР°СЃРёРІСѓ (Array81)\n";
+        cout << "2 вЂ“ Matrix46 (max Сѓ СЂСЏРґРєСѓ, min Сѓ СЃС‚РѕРІРїС†С–)\n";
+        cout << "3 вЂ“ РЎРѕСЂС‚СѓРІР°РЅРЅСЏ РјРµС‚РѕРґРѕРј РІСЃС‚Р°РІРєРё (Р·РјРµРЅС€РµРЅРЅСЏ)\n";
+        cout << "0 вЂ“ Р’РёС…С–Рґ\n";
+        cout << "Р’Р°С€ РІРёР±С–СЂ: ";
         cin >> choice;
 
         switch (choice) {
             case 1:
-                cout << "Введіть ім'я вхідного файлу: ";
+                cout << "Р’РІРµРґС–С‚СЊ С–Рј'СЏ РІС…С–РґРЅРѕРіРѕ С„Р°Р№Р»Сѓ: ";
                 cin >> input_file;
-                cout << "Введіть ім'я вихідного файлу: ";
+                cout << "Р’РІРµРґС–С‚СЊ С–Рј'СЏ РІРёС…С–РґРЅРѕРіРѕ С„Р°Р№Р»Сѓ: ";
                 cin >> output_file;
                 shift_array(input_file, output_file);
                 break;
 
             case 2:
-                cout << "Введіть ім'я файлу з матрицею: ";
+                cout << "Р’РІРµРґС–С‚СЊ С–Рј'СЏ С„Р°Р№Р»Сѓ Р· РјР°С‚СЂРёС†РµСЋ: ";
                 cin >> input_file;
                 find_matrix_special(input_file);
                 break;
 
             case 3:
-                cout << "Введіть ім'я вхідного файлу: ";
+                cout << "Р’РІРµРґС–С‚СЊ С–Рј'СЏ РІС…С–РґРЅРѕРіРѕ С„Р°Р№Р»Сѓ: ";
                 cin >> input_file;
-                cout << "Введіть ім'я вихідного файлу: ";
+                cout << "Р’РІРµРґС–С‚СЊ С–Рј'СЏ РІРёС…С–РґРЅРѕРіРѕ С„Р°Р№Р»Сѓ: ";
                 cin >> output_file;
                 insertion_sort_desc(input_file, output_file);
                 break;
 
             case 0:
-                cout << "Завершення програми.\n";
+                cout << "Р—Р°РІРµСЂС€РµРЅРЅСЏ РїСЂРѕРіСЂР°РјРё.\n";
                 break;
 
             default:
-                cout << "Невірний вибір. Спробуйте ще раз.\n";
+                cout << "РќРµРІС–СЂРЅРёР№ РІРёР±С–СЂ. РЎРїСЂРѕР±СѓР№С‚Рµ С‰Рµ СЂР°Р·.\n";
         }
     } while (choice != 0);
 
     return 0;
 }
+
