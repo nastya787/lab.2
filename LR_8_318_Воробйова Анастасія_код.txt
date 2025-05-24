@@ -1,0 +1,142 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
+// Завдання 1: Зсув масиву вправо на K позицій, перші K = 0
+void shift_array(string in_file, string out_file) {
+    ifstream fin(in_file);
+    ofstream fout(out_file);
+
+    int N, K;
+    int A[100];
+
+    fin >> N >> K;
+    for (int i = 0; i < N; ++i)
+        fin >> A[i];
+
+    for (int i = N - 1; i >= K; --i)
+        A[i] = A[i - K];
+    for (int i = 0; i < K; ++i)
+        A[i] = 0;
+
+    for (int i = 0; i < N; ++i)
+        fout << A[i] << " ";
+
+    fin.close();
+    fout.close();
+}
+
+// Завдання 2: Matrix46 – max у рядку і min у стовпці
+void find_matrix_special(string filename) {
+    ifstream fin(filename);
+    ofstream fout(filename, ios::app);
+
+    int M, N;
+    int A[20][20];
+
+    fin >> M >> N;
+    for (int i = 0; i < M; ++i)
+        for (int j = 0; j < N; ++j)
+            fin >> A[i][j];
+
+    int result = 0;
+    for (int i = 0; i < M; ++i) {
+        int max_col = 0;
+        for (int j = 1; j < N; ++j)
+            if (A[i][j] > A[i][max_col])
+                max_col = j;
+
+        bool is_min = true;
+        for (int k = 0; k < M; ++k)
+            if (A[k][max_col] < A[i][max_col])
+                is_min = false;
+
+        if (is_min) {
+            result = A[i][max_col];
+            break;
+        }
+    }
+
+    fout << "\nResult: " << result << endl;
+    fin.close();
+    fout.close();
+}
+
+// Завдання 3: Сортування вставками у порядку зменшення
+void insertion_sort_desc(string in_file, string out_file) {
+    ifstream fin(in_file);
+    ofstream fout(out_file);
+
+    int N;
+    int A[100];
+
+    fin >> N;
+    for (int i = 0; i < N; ++i)
+        fin >> A[i];
+
+    for (int i = 1; i < N; ++i) {
+        int key = A[i];
+        int j = i - 1;
+        while (j >= 0 && A[j] < key) {
+            A[j + 1] = A[j];
+            j--;
+        }
+        A[j + 1] = key;
+    }
+
+    for (int i = 0; i < N; ++i)
+        fout << A[i] << " ";
+
+    fin.close();
+    fout.close();
+}
+
+// Основне меню
+int main() {
+    int choice;
+    string input_file, output_file;
+
+    do {
+        cout << "\nОберіть завдання:\n";
+        cout << "1 – Зсув масиву (Array81)\n";
+        cout << "2 – Matrix46 (max у рядку, min у стовпці)\n";
+        cout << "3 – Сортування методом вставки (зменшення)\n";
+        cout << "0 – Вихід\n";
+        cout << "Ваш вибір: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                cout << "Введіть ім'я вхідного файлу: ";
+                cin >> input_file;
+                cout << "Введіть ім'я вихідного файлу: ";
+                cin >> output_file;
+                shift_array(input_file, output_file);
+                break;
+
+            case 2:
+                cout << "Введіть ім'я файлу з матрицею: ";
+                cin >> input_file;
+                find_matrix_special(input_file);
+                break;
+
+            case 3:
+                cout << "Введіть ім'я вхідного файлу: ";
+                cin >> input_file;
+                cout << "Введіть ім'я вихідного файлу: ";
+                cin >> output_file;
+                insertion_sort_desc(input_file, output_file);
+                break;
+
+            case 0:
+                cout << "Завершення програми.\n";
+                break;
+
+            default:
+                cout << "Невірний вибір. Спробуйте ще раз.\n";
+        }
+    } while (choice != 0);
+
+    return 0;
+}
