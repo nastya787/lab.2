@@ -1,0 +1,116 @@
+#include <iostream>
+using namespace std;
+
+const int M = 20;  // максимальна кількість рядків
+const int N = 6;   // фіксована кількість стовпців
+
+// Ввід матриці
+void get_matrix(int matr[M][N], int& rows) {
+    do {
+        cout << "Enter number of rows (2-20): ";
+        cin >> rows;
+    } while (rows < 2 || rows > M);
+
+    cout << "Enter matrix elements (" << rows << "x6):\n";
+    for (int i = 0; i < rows; i++)
+        for (int j = 0; j < N; j++)
+            cin >> matr[i][j];
+}
+
+// Вивід матриці
+void show_matrix(int matr[M][N], int rows, int cols) {
+    cout << "Matrix:\n";
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++)
+            cout << matr[i][j] << "\t";
+        cout << endl;
+    }
+}
+
+// Matrix46: знайти елемент, що max у рядку і min у стовпці
+int find_special_element(int matr[M][N], int rows) {
+    for (int i = 0; i < rows; i++) {
+        int max_col = 0;
+        for (int j = 1; j < N; j++)
+            if (matr[i][j] > matr[i][max_col])
+                max_col = j;
+
+        int value = matr[i][max_col];
+        bool is_min_in_col = true;
+        for (int k = 0; k < rows; k++)
+            if (matr[k][max_col] < value)
+                is_min_in_col = false;
+
+        if (is_min_in_col)
+            return value;
+    }
+    return 0;
+}
+
+// Matrix65: видалити перший стовпець з усіма додатніми елементами
+void delete_positive_column(int matr[M][N], int& rows, int& cols) {
+    int col_to_delete = -1;
+    for (int j = 0; j < cols; j++) {
+        bool all_positive = true;
+        for (int i = 0; i < rows; i++) {
+            if (matr[i][j] <= 0) {
+                all_positive = false;
+                break;
+            }
+        }
+        if (all_positive) {
+            col_to_delete = j;
+            break;
+        }
+    }
+
+    if (col_to_delete != -1) {
+        for (int i = 0; i < rows; i++)
+            for (int j = col_to_delete; j < cols - 1; j++)
+                matr[i][j] = matr[i][j + 1];
+        cols--;
+        cout << "Deleted column #" << (col_to_delete + 1) << endl;
+    } else {
+        cout << "No column with all positive elements found.\n";
+    }
+}
+
+// Завдання 1: Matrix46
+void task1() {
+    int matr[M][N], rows;
+    get_matrix(matr, rows);
+    show_matrix(matr, rows, N);
+    int result = find_special_element(matr, rows);
+    cout << "Result: " << result << endl;
+}
+
+// Завдання 2: Matrix65
+void task2() {
+    int matr[M][N], rows, cols = N;
+    get_matrix(matr, rows);
+    show_matrix(matr, rows, cols);
+    delete_positive_column(matr, rows, cols);
+    cout << "Matrix after processing:\n";
+    show_matrix(matr, rows, cols);
+}
+
+// Меню вибору
+int main() {
+    int choice;
+    do {
+        cout << "\n1 – Matrix46 (max у рядку, min у стовпці)\n";
+        cout << "2 – Matrix65 (видалити позитивний стовпець)\n";
+        cout << "0 – Вихід\n";
+        cout << "Ваш вибір: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1: task1(); break;
+            case 2: task2(); break;
+            case 0: cout << "Завершення програми.\n"; break;
+            default: cout << "Невірний вибір. Спробуйте ще раз.\n";
+        }
+    } while (choice != 0);
+
+    return 0;
+}
