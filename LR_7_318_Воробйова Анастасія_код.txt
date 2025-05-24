@@ -1,10 +1,10 @@
 #include <iostream>
 using namespace std;
 
-const int M = 20;  // максимальна кількість рядків
-const int N = 6;   // фіксована кількість стовпців
+const int M = 20;  // РјР°РєСЃРёРјР°Р»СЊРЅР° РєС–Р»СЊРєС–СЃС‚СЊ СЂСЏРґРєС–РІ
+const int N = 6;   // С„С–РєСЃРѕРІР°РЅР° РєС–Р»СЊРєС–СЃС‚СЊ СЃС‚РѕРІРїС†С–РІ
 
-// Ввід матриці
+// Р’РІС–Рґ РјР°С‚СЂРёС†С–
 void get_matrix(int matr[M][N], int& rows) {
     do {
         cout << "Enter number of rows (2-20): ";
@@ -17,7 +17,7 @@ void get_matrix(int matr[M][N], int& rows) {
             cin >> matr[i][j];
 }
 
-// Вивід матриці
+// Р’РёРІС–Рґ РјР°С‚СЂРёС†С–
 void show_matrix(int matr[M][N], int rows, int cols) {
     cout << "Matrix:\n";
     for (int i = 0; i < rows; i++) {
@@ -27,7 +27,7 @@ void show_matrix(int matr[M][N], int rows, int cols) {
     }
 }
 
-// Matrix46: знайти елемент, що max у рядку і min у стовпці
+// Matrix46: Р·РЅР°Р№С‚Рё РµР»РµРјРµРЅС‚, С‰Рѕ max Сѓ СЂСЏРґРєСѓ С– min Сѓ СЃС‚РѕРІРїС†С–
 int find_special_element(int matr[M][N], int rows) {
     for (int i = 0; i < rows; i++) {
         int max_col = 0;
@@ -47,7 +47,7 @@ int find_special_element(int matr[M][N], int rows) {
     return 0;
 }
 
-// Matrix65: видалити перший стовпець з усіма додатніми елементами
+// Matrix65: РІРёРґР°Р»РёС‚Рё РїРµСЂС€РёР№ СЃС‚РѕРІРїРµС†СЊ Р· СѓСЃС–РјР° РґРѕРґР°С‚РЅС–РјРё РµР»РµРјРµРЅС‚Р°РјРё
 void delete_positive_column(int matr[M][N], int& rows, int& cols) {
     int col_to_delete = -1;
     for (int j = 0; j < cols; j++) {
@@ -75,7 +75,7 @@ void delete_positive_column(int matr[M][N], int& rows, int& cols) {
     }
 }
 
-// Завдання 1: Matrix46
+// Р—Р°РІРґР°РЅРЅСЏ 1: Matrix46
 void task1() {
     int matr[M][N], rows;
     get_matrix(matr, rows);
@@ -84,7 +84,7 @@ void task1() {
     cout << "Result: " << result << endl;
 }
 
-// Завдання 2: Matrix65
+// Р—Р°РІРґР°РЅРЅСЏ 2: Matrix65
 void task2() {
     int matr[M][N], rows, cols = N;
     get_matrix(matr, rows);
@@ -94,21 +94,21 @@ void task2() {
     show_matrix(matr, rows, cols);
 }
 
-// Меню вибору
+// РњРµРЅСЋ РІРёР±РѕСЂСѓ
 int main() {
     int choice;
     do {
-        cout << "\n1 – Matrix46 (max у рядку, min у стовпці)\n";
-        cout << "2 – Matrix65 (видалити позитивний стовпець)\n";
-        cout << "0 – Вихід\n";
-        cout << "Ваш вибір: ";
+        cout << "\n1 вЂ“ Matrix46 (max Сѓ СЂСЏРґРєСѓ, min Сѓ СЃС‚РѕРІРїС†С–)\n";
+        cout << "2 вЂ“ Matrix65 (РІРёРґР°Р»РёС‚Рё РїРѕР·РёС‚РёРІРЅРёР№ СЃС‚РѕРІРїРµС†СЊ)\n";
+        cout << "0 вЂ“ Р’РёС…С–Рґ\n";
+        cout << "Р’Р°С€ РІРёР±С–СЂ: ";
         cin >> choice;
 
         switch (choice) {
             case 1: task1(); break;
             case 2: task2(); break;
-            case 0: cout << "Завершення програми.\n"; break;
-            default: cout << "Невірний вибір. Спробуйте ще раз.\n";
+            case 0: cout << "Р—Р°РІРµСЂС€РµРЅРЅСЏ РїСЂРѕРіСЂР°РјРё.\n"; break;
+            default: cout << "РќРµРІС–СЂРЅРёР№ РІРёР±С–СЂ. РЎРїСЂРѕР±СѓР№С‚Рµ С‰Рµ СЂР°Р·.\n";
         }
     } while (choice != 0);
 
