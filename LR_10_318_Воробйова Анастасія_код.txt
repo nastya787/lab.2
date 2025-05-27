@@ -1,0 +1,113 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+// ===== Завдання 1: Перевірка часу + 12-годинний формат =====
+
+struct TTime {
+    int Hour;
+    int Min;
+    int Sec;
+};
+
+// Перевірка правильності часу
+int CheckTime(TTime T) {
+    int result = 0;
+    if (T.Hour < 0 || T.Hour > 23) result += 100;
+    if (T.Min < 0 || T.Min > 59) result += 10;
+    if (T.Sec < 0 || T.Sec > 59) result += 1;
+    return result;
+}
+
+// Перетворення часу у 12-годинний формат
+void To12h(TTime& T, bool& PM) {
+    if (CheckTime(T) != 0) {
+        T = {0, 0, 0};
+        PM = false;
+        return;
+    }
+
+    PM = T.Hour >= 12;
+    if (T.Hour == 0) T.Hour = 12;
+    else if (T.Hour > 12) T.Hour -= 12;
+}
+
+// Демонстрація завдання 1
+void task1() {
+    cout << "\n--- Завдання 1: CheckTime + To12h ---\n";
+    TTime times[5] = {
+        {13, 15, 30},
+        {0, 0, 0},
+        {23, 59, 59},
+        {12, 0, 0},
+        {25, -1, 60}
+    };
+
+    for (int i = 0; i < 5; ++i) {
+        int code = CheckTime(times[i]);
+        cout << "Час #" << i + 1 << ": ";
+        if (code == 0)
+            cout << "Час коректний.\n";
+        else
+            cout << "Час некоректний. Код помилки: " << code << "\n";
+
+        bool PM;
+        To12h(times[i], PM);
+
+        cout << "12-годинний формат: ";
+        printf("%02d:%02d:%02d %s\n\n", times[i].Hour, times[i].Min, times[i].Sec, PM ? "PM" : "AM");
+    }
+}
+
+// ===== Завдання 2: Гіпотенуза і периметр =====
+
+void task2() {
+    cout << "\n--- Завдання 2: Begin12 ---\n";
+    double a, b;
+    cout << "Введіть катети a і b: ";
+    cin >> a >> b;
+
+    double c = sqrt(a * a + b * b);
+    double P = a + b + c;
+
+    cout << "Гіпотенуза: " << c << endl;
+    cout << "Периметр: " << P << endl;
+}
+
+// ===== Завдання 3: Boolean4 =====
+
+void task3() {
+    cout << "\n--- Завдання 3: Boolean4 ---\n";
+    int A, B;
+    cout << "Введіть A і B: ";
+    cin >> A >> B;
+
+    bool result = (A > 2 && B <= 3);
+    cout << "Умова (A > 2 і B ? 3): " << (result ? "Істинна" : "Хибна") << endl;
+}
+
+// ===== Меню програми =====
+
+int main() {
+    int choice;
+    do {
+        cout << "\n=== МЕНЮ ===\n";
+        cout << "1 – Завдання 1: Перевірка часу і To12h\n";
+        cout << "2 – Завдання 2: Гіпотенуза і периметр\n";
+        cout << "3 – Завдання 3: Перевірка логічного виразу\n";
+        cout << "0 – Вихід\n";
+        cout << "Ваш вибір: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1: task1(); break;
+            case 2: task2(); break;
+            case 3: task3(); break;
+            case 0: cout << "Завершення програми.\n"; break;
+            default: cout << "Невірний вибір. Спробуйте ще раз.\n";
+        }
+    } while (choice != 0);
+
+    return 0;
+}
