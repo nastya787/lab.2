@@ -1,47 +1,47 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <cctype> // Для isalnum
-#include <cstring> // Для strlen
+#include <cctype> // Р”Р»СЏ isalnum
+#include <cstring> // Р”Р»СЏ strlen
 
 using namespace std;
 
-// =================== Завдання 1 ===================
-// A. Власна реалізація string::assign(const char*, size_t)
+// =================== Р—Р°РІРґР°РЅРЅСЏ 1 ===================
+// A. Р’Р»Р°СЃРЅР° СЂРµР°Р»С–Р·Р°С†С–СЏ string::assign(const char*, size_t)
 void my_assign(char dest[], const char* src, size_t n) {
     size_t len = strlen(src);
     size_t copy_len = (n < len) ? n : len;
     for (size_t i = 0; i < copy_len; ++i)
         dest[i] = src[i];
-    dest[copy_len] = '\0'; // завершення C-рядка
+    dest[copy_len] = '\0'; // Р·Р°РІРµСЂС€РµРЅРЅСЏ C-СЂСЏРґРєР°
 }
 
-// B+C. Демонстрація використання
+// B+C. Р”РµРјРѕРЅСЃС‚СЂР°С†С–СЏ РІРёРєРѕСЂРёСЃС‚Р°РЅРЅСЏ
 void task1() {
     char input[100], output[100];
     string s;
 
-    cout << "Введіть рядок: ";
-    cin.ignore();  // очищення буфера перед getline
+    cout << "Р’РІРµРґС–С‚СЊ СЂСЏРґРѕРє: ";
+    cin.ignore();  // РѕС‡РёС‰РµРЅРЅСЏ Р±СѓС„РµСЂР° РїРµСЂРµРґ getline
     cin.getline(input, 100);
     s = input;
 
     size_t n;
-    cout << "Скільки символів присвоїти? ";
+    cout << "РЎРєС–Р»СЊРєРё СЃРёРјРІРѕР»С–РІ РїСЂРёСЃРІРѕС—С‚Рё? ";
     cin >> n;
 
-    // Використання методу string::assign
+    // Р’РёРєРѕСЂРёСЃС‚Р°РЅРЅСЏ РјРµС‚РѕРґСѓ string::assign
     string result = s;
     result.assign(input, n);
-    cout << "Метод string.assign: " << result << endl;
+    cout << "РњРµС‚РѕРґ string.assign: " << result << endl;
 
-    // Використання власної функції
+    // Р’РёРєРѕСЂРёСЃС‚Р°РЅРЅСЏ РІР»Р°СЃРЅРѕС— С„СѓРЅРєС†С–С—
     my_assign(output, input, n);
-    cout << "Моя функція: " << output << endl;
+    cout << "РњРѕСЏ С„СѓРЅРєС†С–СЏ: " << output << endl;
 }
 
-// =================== Завдання 2 ===================
-// Перевірка дозволених символів
+// =================== Р—Р°РІРґР°РЅРЅСЏ 2 ===================
+// РџРµСЂРµРІС–СЂРєР° РґРѕР·РІРѕР»РµРЅРёС… СЃРёРјРІРѕР»С–РІ
 bool is_valid_string(const string& str) {
     if (str.empty()) return false;
     for (char c : str) {
@@ -50,7 +50,7 @@ bool is_valid_string(const string& str) {
     return true;
 }
 
-// Пошук входжень підрядка
+// РџРѕС€СѓРє РІС…РѕРґР¶РµРЅСЊ РїС–РґСЂСЏРґРєР°
 int count_occurrences(const string& s, const string& s0) {
     int count = 0;
     size_t pos = 0;
@@ -61,52 +61,52 @@ int count_occurrences(const string& s, const string& s0) {
     return count;
 }
 
-// A–E: обробка текстового файлу
+// AвЂ“E: РѕР±СЂРѕР±РєР° С‚РµРєСЃС‚РѕРІРѕРіРѕ С„Р°Р№Р»Сѓ
 void task2() {
     string filename, s0, line;
-    cout << "Введіть ім'я вхідного файлу: ";
+    cout << "Р’РІРµРґС–С‚СЊ С–Рј'СЏ РІС…С–РґРЅРѕРіРѕ С„Р°Р№Р»Сѓ: ";
     cin >> filename;
-    cout << "Введіть підрядок S0 для пошуку: ";
+    cout << "Р’РІРµРґС–С‚СЊ РїС–РґСЂСЏРґРѕРє S0 РґР»СЏ РїРѕС€СѓРєСѓ: ";
     cin >> s0;
 
     ifstream fin(filename);
     ofstream fout("output_strings.txt");
 
     if (!fin.is_open()) {
-        cout << "Помилка відкриття файлу " << filename << endl;
+        cout << "РџРѕРјРёР»РєР° РІС–РґРєСЂРёС‚С‚СЏ С„Р°Р№Р»Сѓ " << filename << endl;
         return;
     }
 
     while (getline(fin, line)) {
         if (is_valid_string(line)) {
             int count = count_occurrences(line, s0);
-            fout << "Рядок: " << line << " — входжень: " << count << endl;
+            fout << "Р СЏРґРѕРє: " << line << " вЂ” РІС…РѕРґР¶РµРЅСЊ: " << count << endl;
         } else {
-            fout << "Рядок: " << line << " — недопустимий" << endl;
+            fout << "Р СЏРґРѕРє: " << line << " вЂ” РЅРµРґРѕРїСѓСЃС‚РёРјРёР№" << endl;
         }
     }
 
     fin.close();
     fout.close();
-    cout << "Результати записано у файл output_strings.txt\n";
+    cout << "Р РµР·СѓР»СЊС‚Р°С‚Рё Р·Р°РїРёСЃР°РЅРѕ Сѓ С„Р°Р№Р» output_strings.txt\n";
 }
 
-// =================== Меню програми ===================
+// =================== РњРµРЅСЋ РїСЂРѕРіСЂР°РјРё ===================
 int main() {
     int choice;
     do {
-        cout << "\n=== МЕНЮ ===\n";
-        cout << "1 – Завдання 1: assign (метод + моя функція)\n";
-        cout << "2 – Завдання 2: String32 – кількість входжень\n";
-        cout << "0 – Вихід\n";
-        cout << "Ваш вибір: ";
+        cout << "\n=== РњР•РќР® ===\n";
+        cout << "1 вЂ“ Р—Р°РІРґР°РЅРЅСЏ 1: assign (РјРµС‚РѕРґ + РјРѕСЏ С„СѓРЅРєС†С–СЏ)\n";
+        cout << "2 вЂ“ Р—Р°РІРґР°РЅРЅСЏ 2: String32 вЂ“ РєС–Р»СЊРєС–СЃС‚СЊ РІС…РѕРґР¶РµРЅСЊ\n";
+        cout << "0 вЂ“ Р’РёС…С–Рґ\n";
+        cout << "Р’Р°С€ РІРёР±С–СЂ: ";
         cin >> choice;
 
         switch (choice) {
             case 1: task1(); break;
             case 2: task2(); break;
-            case 0: cout << "Завершення програми.\n"; break;
-            default: cout << "Невірний вибір. Спробуйте ще раз.\n";
+            case 0: cout << "Р—Р°РІРµСЂС€РµРЅРЅСЏ РїСЂРѕРіСЂР°РјРё.\n"; break;
+            default: cout << "РќРµРІС–СЂРЅРёР№ РІРёР±С–СЂ. РЎРїСЂРѕР±СѓР№С‚Рµ С‰Рµ СЂР°Р·.\n";
         }
     } while (choice != 0);
 
