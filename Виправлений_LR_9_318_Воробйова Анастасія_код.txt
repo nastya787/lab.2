@@ -1,0 +1,114 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <cctype> // Для isalnum
+#include <cstring> // Для strlen
+
+using namespace std;
+
+// =================== Завдання 1 ===================
+// A. Власна реалізація string::assign(const char*, size_t)
+void my_assign(char dest[], const char* src, size_t n) {
+    size_t len = strlen(src);
+    size_t copy_len = (n < len) ? n : len;
+    for (size_t i = 0; i < copy_len; ++i)
+        dest[i] = src[i];
+    dest[copy_len] = '\0'; // завершення C-рядка
+}
+
+// B+C. Демонстрація використання
+void task1() {
+    char input[100], output[100];
+    string s;
+
+    cout << "Введіть рядок: ";
+    cin.ignore();  // очищення буфера перед getline
+    cin.getline(input, 100);
+    s = input;
+
+    size_t n;
+    cout << "Скільки символів присвоїти? ";
+    cin >> n;
+
+    // Використання методу string::assign
+    string result = s;
+    result.assign(input, n);
+    cout << "Метод string.assign: " << result << endl;
+
+    // Використання власної функції
+    my_assign(output, input, n);
+    cout << "Моя функція: " << output << endl;
+}
+
+// =================== Завдання 2 ===================
+// Перевірка дозволених символів
+bool is_valid_string(const string& str) {
+    if (str.empty()) return false;
+    for (char c : str) {
+        if (!isalnum(c) && c != '_' && c != ' ') return false;
+    }
+    return true;
+}
+
+// Пошук входжень підрядка
+int count_occurrences(const string& s, const string& s0) {
+    int count = 0;
+    size_t pos = 0;
+    while ((pos = s.find(s0, pos)) != string::npos) {
+        ++count;
+        pos += s0.length();
+    }
+    return count;
+}
+
+// A–E: обробка текстового файлу
+void task2() {
+    string filename, s0, line;
+    cout << "Введіть ім'я вхідного файлу: ";
+    cin >> filename;
+    cout << "Введіть підрядок S0 для пошуку: ";
+    cin >> s0;
+
+    ifstream fin(filename);
+    ofstream fout("output_strings.txt");
+
+    if (!fin.is_open()) {
+        cout << "Помилка відкриття файлу " << filename << endl;
+        return;
+    }
+
+    while (getline(fin, line)) {
+        if (is_valid_string(line)) {
+            int count = count_occurrences(line, s0);
+            fout << "Рядок: " << line << " — входжень: " << count << endl;
+        } else {
+            fout << "Рядок: " << line << " — недопустимий" << endl;
+        }
+    }
+
+    fin.close();
+    fout.close();
+    cout << "Результати записано у файл output_strings.txt\n";
+}
+
+// =================== Меню програми ===================
+int main() {
+    int choice;
+    do {
+        cout << "\n=== МЕНЮ ===\n";
+        cout << "1 – Завдання 1: assign (метод + моя функція)\n";
+        cout << "2 – Завдання 2: String32 – кількість входжень\n";
+        cout << "0 – Вихід\n";
+        cout << "Ваш вибір: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1: task1(); break;
+            case 2: task2(); break;
+            case 0: cout << "Завершення програми.\n"; break;
+            default: cout << "Невірний вибір. Спробуйте ще раз.\n";
+        }
+    } while (choice != 0);
+
+    return 0;
+}
